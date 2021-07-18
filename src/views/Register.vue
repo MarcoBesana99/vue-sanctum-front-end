@@ -9,37 +9,49 @@
         <label for="name">Name</label>
         <input
           type="text"
-          v-model="name"
+          v-model="form.name"
           id="name"
           class="mt-3 bg-gray-100 py-1 rounded px-1"
         />
+        <span class="mt-3 text-red-500" v-if="errors.name">{{
+          errors.name[0]
+        }}</span>
       </div>
       <div class="mt-4 flex flex-col text-left">
         <label for="email">Email</label>
         <input
           type="email"
-          v-model="email"
+          v-model="form.email"
           id="email"
           class="mt-3 bg-gray-100 py-1 rounded px-1"
         />
+        <span class="mt-3 text-red-500" v-if="errors.email">{{
+          errors.email[0]
+        }}</span>
       </div>
       <div class="mt-4 flex flex-col text-left">
         <label for="password">Password</label>
         <input
           type="password"
-          v-model="password"
+          v-model="form.password"
           id="password"
           class="mt-3 bg-gray-100 py-1 rounded px-1"
         />
+        <span class="mt-3 text-red-500" v-if="errors.password">{{
+          errors.password[0]
+        }}</span>
       </div>
       <div class="mt-4 flex flex-col text-left">
         <label for="password_confirmation">Password Confirmation</label>
         <input
           type="password"
-          v-model="password_confirmation"
+          v-model="form.password_confirmation"
           id="password_confirmation"
           class="mt-3 bg-gray-100 py-1 rounded px-1"
         />
+        <span class="mt-3 text-red-500" v-if="errors.password_confirmation">{{
+          errors.password_confirmation[0]
+        }}</span>
       </div>
       <div class="mt-6 flex flex-col text-left">
         <button
@@ -65,11 +77,20 @@ export default {
         password: "",
         password_confirmation: "",
       },
+      errors: "",
     };
   },
   methods: {
     register() {
-      User.register(this.form);
+      User.register(this.form)
+        .then(() => {
+          this.$router.push({ name: "Login" });
+        })
+        .catch((error) => {
+          if (error.response.status === 422) {
+            this.errors = error.response.data.errors;
+          }
+        });
     },
   },
 };
