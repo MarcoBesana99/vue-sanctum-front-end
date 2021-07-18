@@ -43,6 +43,7 @@
 
 <script>
 import User from "../apis/User";
+import { mapActions } from "vuex";
 
 export default {
   data() {
@@ -55,13 +56,17 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      setAuthenticated: "auth/setAuthenticated"
+    }),
     login() {
       User.login(this.form)
         .then(() => {
-          localStorage.setItem("auth", "true")
+          this.setAuthenticated(true);
           this.$router.push({ name: "Home" });
         })
         .catch((error) => {
+          this.setAuthenticated(false)
           if (error.response.status === 422) {
             this.errors = error.response.data.errors;
           }

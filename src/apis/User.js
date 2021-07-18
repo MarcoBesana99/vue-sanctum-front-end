@@ -22,5 +22,5 @@ export default {
 
   auth() {
     return Api.get("/user")
-  }
+  },
 }
