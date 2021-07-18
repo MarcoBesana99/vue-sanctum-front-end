@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import User from "../apis/User";
+
 export default {
   data() {
     return {
@@ -49,14 +51,23 @@ export default {
         email: "",
         password: "",
       },
-      errors : []
+      errors: [],
     };
   },
   methods: {
     login() {
-      console.log('login')
-    }
-  }
+      User.login(this.form)
+        .then(() => {
+          localStorage.setItem("auth", "true")
+          this.$router.push({ name: "Home" });
+        })
+        .catch((error) => {
+          if (error.response.status === 422) {
+            this.errors = error.response.data.errors;
+          }
+        });
+    },
+  },
 };
 </script>
 
