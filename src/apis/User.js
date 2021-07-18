@@ -18,5 +18,9 @@ export default {
     await Csrf.getCookie()
 
     return Api.post("/logout", form)
+  },
+
+  auth() {
+    return Api.get("/user")
   }
 }
