@@ -77,7 +77,7 @@ export default {
         password: "",
         password_confirmation: "",
       },
-      errors: "",
+      errors: [],
     };
   },
   methods: {
