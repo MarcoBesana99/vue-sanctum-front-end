@@ -1,7 +1,7 @@
 import axios from "axios"
 
 let Api = axios.create({
-  baseUrl: "http://localhost:8005/api"
+  baseURL: "http://localhost:8085/api"
 })
 
 export default Api

@@ -54,18 +54,22 @@
 </template>
 
 <script>
+import User from "../apis/User";
+
 export default {
   data() {
     return {
-      name: "",
-      email: "",
-      password: "",
-      password_confirmation: "",
+      form: {
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+      },
     };
   },
   methods: {
     register() {
-      console.log('register')
+      User.register(this.form);
     },
   },
 };
