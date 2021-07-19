@@ -9,15 +9,19 @@
 
 <script>
 import User from "../apis/User";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   methods: {
     ...mapGetters({
       getAuthenticated: "auth/authenticated",
     }),
+    ...mapActions({
+      setAuthenticated: "auth/setAuthenticated"
+    }),
     logout() {
       User.logout().then(() => {
+        this.setAuthenticated(false);
         this.$router.push({ name: "Login" });
       });
     },

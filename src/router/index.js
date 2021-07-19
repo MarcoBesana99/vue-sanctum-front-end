@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
-import User from "../apis/User"
+import store from '../store/index'
 
 const routes = [
   {
@@ -10,28 +10,49 @@ const routes = [
     name: 'Home',
     component: Home,
     beforeEnter: ((to, from, next) => {
-      User.auth().then(res => {
-        if (res.status === 401) {
-          next({
-            name: 'Login',
-          })
-        }
-        else {
-          next()
-        }
-      })
+      if (!store.state.auth.authenticated) {
+        next({
+          name: 'Login',
+        })
+      }
+      else {
+        next()
+      }
     }
     )
   },
   {
     path: '/register',
     name: 'Register',
-    component: Register
+    component: Register,
+    beforeEnter: ((to, from, next) => {
+      console.log(store.state.auth.authenticated)
+      if (store.state.auth.authenticated) {
+        next({
+          name: 'Home',
+        })
+      }
+      else {
+        next()
+      }
+    }
+    )
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    beforeEnter: ((to, from, next) => {
+      if (store.state.auth.authenticated) {
+        next({
+          name: 'Home',
+        })
+      }
+      else {
+        next()
+      }
+    }
+    )
   }
 ]
 

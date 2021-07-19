@@ -1,7 +1,8 @@
 <template>
   <div class="home">
+    <h1 class="font-bold text-3xl">Homepage</h1>
     <div v-if="user">
-      <h2 class="font-semibold text-2xl">Hello, {{ user.name }}</h2>
+      <h2 class="font-semibold text-2xl mt-6">Hello, {{ user.name }}</h2>
       <span>Hello, {{ user.email }}</span>
     </div>
   </div>
