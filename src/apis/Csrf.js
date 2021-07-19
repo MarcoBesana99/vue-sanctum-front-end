@@ -3,7 +3,10 @@ import Cookie from "js-cookie"
 
 export default {
   getCookie() {
-    if (Cookie.get('XSRF-TOKEN')) return
+    let token = Cookie.get('XSRF-TOKEN')
+    if (token) {
+      return new Promise(resolve => resolve(token))
+    }
     else return Api.get('/csrf-cookie')
   }
 }
