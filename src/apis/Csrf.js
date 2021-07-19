@@ -1,7 +1,9 @@
 import Api from "./Api"
+import Cookie from "js-cookie"
 
 export default {
   getCookie() {
-    return Api.get('/csrf-cookie')
+    if (Cookie.get('XSRF-TOKEN')) return
+    else return Api.get('/csrf-cookie')
   }
 }
