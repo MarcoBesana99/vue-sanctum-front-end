@@ -1,8 +1,8 @@
 <template>
   <div id="nav">
     <router-link class="mr-4" v-if="getAuthenticated()" to="/">Home</router-link>
-    <router-link class="mr-4" to="/register">Register</router-link>
-    <router-link class="mr-4" to="/login">Login</router-link>
+    <router-link class="mr-4" v-if="getAuthenticated() == false" to="/register">Register</router-link>
+    <router-link class="mr-4" v-if="getAuthenticated() == false" to="/login">Login</router-link>
     <a v-if="getAuthenticated()" href="#" @click.prevent="logout">Logout</a>
   </div>
 </template>
