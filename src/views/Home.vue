@@ -1,18 +1,26 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1 class="font-bold text-3xl">Homepage</h1>
+    <div v-if="user">
+      <h2 class="font-semibold text-2xl mt-6">Hello, {{ user.name }}</h2>
+      <span>Hello, {{ user.email }}</span>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import User from "../apis/User";
 
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
+  data() {
+    return {
+      user: null,
+    };
+  },
+  mounted() {
+    User.auth().then((response) => {
+      this.user = response.data;
+    });
+  },
+};
 </script>
